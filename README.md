@@ -1,14 +1,14 @@
 # JavaScript Projects
 
 I've been studying JavaScript by building projects.
-Here are lists of projects down below.
+Here is  a list of projects:
 
 ## Web_Map
 
-This is the project that shows informations about several restaurants and parks on the map. This is mainly focussed on an algorithm feature that additional informations and places can be dynamically added in the array without needing to change or add a lot of codes.
-You can check it out here [Codepen](https://codepen.io/yelee/pen/yzpxgwr?editors=1111)
+This project shows information about several restaurants and parks on the map. This is mainly focused on an algorithm where additional where places and their associated information can be dynamically added in the array without needing to write a lot of code.
+You can check it out here: [Codepen](https://codepen.io/yelee/pen/YzpxgWR)
 
 
 ## Quiz_App
 
-This is the quiz that recommends a user where user should travel based on their preference. Each question tells what a user like. For example, If you like movie "Sex and the city" over "Mamamia", It assumes that you'd like to beach over city. It sends the data of user's choice to Airtable and reads back aggregate results from Airtable, and use D3.js to make a chart. Additional question can be easily added without changing a lot and writing new codes. You can try this quiz here [Codepen](https://codepen.io/yelee/pen/ZEBXpMV?editors=1011)
+This quiz recommends where a user should travel based on their preferences. Each question asks what a user likes. For example, If you like movie "Sex and the City" over "Mama Mia!", then it assumes that you'd like to explore the city over the beach. It sends the user's answer to an Airtable database and outputs the results. D3.js is then used to visualize the data via a bar chart. Additional questions can be easily added without writing a lot of code. You can try this quiz here: [Codepen](https://codepen.io/yelee/pen/ZEBXpMV?editors=1011)
