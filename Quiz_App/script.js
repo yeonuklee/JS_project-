@@ -36,16 +36,16 @@ var questions = [
 ];
 
 /*
-  What questions entails 
-  
-  If you're willing to eat any foods that you've never seen before, you're adventurous. If not, this survey will think you are not risk taker.
-  
-  Your choice of movie will tell what you like
-  Mamamia - beach
-  before the sunset - romance
-  Eat, Play and Love - vacation
-  Sex and the city - You're a ciry person. You love party and shopping
-  */
+What questions entails 
+
+If you're willing to eat any foods that you've never seen before, you're adventurous. If not, this survey will think you are not risk taker.
+
+Your choice of movie will tell what you like
+Mamamia - beach
+before the sunset - romance
+Eat, Play and Love - vacation
+Sex and the city - You're a ciry person. You love party and shopping
+*/
 
 var questionCounter = 0; //Tracks question number
 var selections = []; //User input
@@ -172,7 +172,7 @@ var country = function (arr) {
 
   //Finds a max number of matches.
   var index = newArr.indexOf(Math.max(...newArr));
-
+  sendInput(countries[index]);
   return countries[index];
 };
 
@@ -230,3 +230,115 @@ $("#next").on("click", function (e) {
     displayNext();
   }
 });
+
+var airtable_api_encoder_url =
+  "https://api.airtable.com/v0/appiabgmKkdYSuDNJ/Table%201?";
+var airtable_api_key = "key5C9188odSLGPQe";
+var airtable_view_name = "Grid+view";
+var airtable_write_endpoint =
+  airtable_api_encoder_url + "api_key=" + airtable_api_key;
+var airtable_read_endpoint =
+  airtable_write_endpoint +
+  "&view=" +
+  airtable_view_name +
+  "&maxRecords=100&sortField=_createdTime&sortDirection=desc";
+
+// Write to Airtable with form submission
+
+var pollData = {};
+var chartData = [];
+var countryData = [];
+//var c = [];
+//var chart = $(".chart")
+
+function sendInput(country) {
+  console.log("airtable");
+
+  console.log(country);
+  axios
+    .post(airtable_write_endpoint, {
+      fields: {
+        Country: country,
+      },
+    })
+    .then(function (response) {
+      setTimeout(function () {
+        getDataAndBuild();
+      }, 750);
+    });
+}
+
+function getDataAndBuild() {
+  pollData = {
+    "South Korea": 0,
+    Australia: 0,
+    Italy: 0,
+    Canada: 0,
+    Vietnam: 0,
+    Bali: 0,
+    Germany: 0,
+    Holland: 0,
+    Singapore: 0,
+    Cambodia: 0,
+    France: 0,
+    Brazil: 0,
+    Cuba: 0,
+    Kenya: 0,
+  };
+  chartData = [
+    "South Korea",
+    "Australia",
+    "Italy",
+    "Canada",
+    "Vietnam",
+    "Bali",
+    "Germany",
+    "Holland",
+    "Singapore",
+    "Cambodia",
+    "France",
+    "Brazil",
+    "Cuba",
+    "Kenya",
+  ];
+
+  axios.get(airtable_read_endpoint).then(function (result) {
+    result.data.records.map((element, index) => {
+      pollData[element.fields["Country"]]++;
+    });
+
+    chartData.map((country) => {
+      if (!isNaN(pollData[country])) {
+        countryData.push(pollData[country]);
+      } else {
+        countryData.push(0);
+      }
+    });
+
+    buildChart(countryData);
+  });
+}
+
+function buildChart(data) {
+  console.log("Building chart with this data: ", data);
+  //chart.classList.remove('hide');
+  var x = d3.scale
+    .linear()
+    .domain([0, d3.max(data)])
+    .range([10, 200]);
+  d3.select(".chart").selectAll("div").remove();
+
+  setTimeout(function () {
+    d3.select(".chart")
+      .selectAll("div")
+      .data(data)
+      .enter()
+      .append("div")
+      .style("width", function (d) {
+        return x(d) + "px";
+      })
+      .text(function (d, i) {
+        return chartData[i] + " " + d;
+      });
+  }, 200);
+}

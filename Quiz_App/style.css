@@ -9,8 +9,8 @@ h1 {
 }
 
 /* #title {
-    font-family: impact;
-    font-size: 20px;
+  font-family: impact;
+  font-size: 20px;
 } */
 
 #quiz {
@@ -44,4 +44,29 @@ ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+}
+.chart {
+  padding: 20px;
+}
+.chart div {
+  font-size: 20px;
+  text-align: right;
+  padding: 5px;
+  margin: 0 0 3px 0;
+  color: white;
+}
+.chart div:nth-of-type(1) {
+  background-color: #fdbe1a;
+}
+.chart div:nth-of-type(2) {
+  background-color: #f2b6a0;
+}
+.chart div:nth-of-type(3) {
+  background-color: #ffd85a;
+}
+.chart div:nth-of-type(4) {
+  background-color: #830c07;
+}
+.chart div:nth-of-type(5) {
+  background-color: #999999;
 }
